@@ -35,7 +35,11 @@
   .foot{position:absolute;left:50px;right:50px;bottom:13px;display:flex;justify-content:space-between;font-size:9px;color:var(--muted);letter-spacing:.04em;}
   .badge{display:inline-flex;align-items:center;gap:6px;padding:6px 13px;border-radius:999px;font-weight:700;font-size:14px;letter-spacing:.06em;}
   .badge.on{background:rgba(46,224,138,.14);color:var(--bull);border:1px solid rgba(46,224,138,.4);}
+  .badge.off{background:rgba(255,93,108,.14);color:var(--bear);border:1px solid rgba(255,93,108,.4);}
+  .badge.neu{background:rgba(245,194,75,.14);color:var(--gold);border:1px solid rgba(245,194,75,.4);}
   .dot{width:8px;height:8px;border-radius:50%;background:var(--bull);box-shadow:0 0 0 0 rgba(46,224,138,.6);animation:pulse 1.8s infinite;}
+  .badge.off .dot{background:var(--bear);animation:none;box-shadow:none;}
+  .badge.neu .dot{background:var(--gold);animation:none;box-shadow:none;}
   @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(46,224,138,.55)}70%{box-shadow:0 0 0 10px rgba(46,224,138,0)}100%{box-shadow:0 0 0 0 rgba(46,224,138,0)}}
   .grid{display:grid;gap:12px;}
   .card{background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.01));border:1px solid var(--line);border-radius:12px;padding:13px 14px;backdrop-filter:blur(4px);box-shadow:0 6px 20px rgba(0,0,0,.35);}
@@ -43,7 +47,8 @@
   .tile .lab{font-size:10px;color:var(--muted);letter-spacing:.04em;}
   .tile .val{font-size:22px;font-weight:700;font-family:'JetBrains Mono',monospace;}
   .tile .chg{font-size:13px;font-weight:700;font-family:'JetBrains Mono',monospace;}
-  .up{color:var(--bull);} .down{color:var(--bear);}
+  .up{color:var(--bull);} .down{color:var(--bear);} .neu{color:var(--muted);}
+  .md{color:var(--gold);}
   .pill{display:inline-block;padding:3px 8px;border-radius:5px;font-size:10px;font-weight:600;}
   .read{border-left:2px solid var(--gold);background:rgba(245,194,75,.06);border-radius:0 9px 9px 0;padding:10px 13px;font-size:15px;line-height:1.45;}
   .read.heb{border-left:none;border-right:2px solid var(--gold);border-radius:9px 0 0 9px;}
@@ -63,6 +68,11 @@
   .tli{position:absolute;left:0;top:0;height:150px;transform:translateX(-50%);}
   .tli .dot{position:absolute;left:50%;top:66px;transform:translateX(-50%);width:11px;height:11px;border-radius:50%;background:var(--gold);border:2px solid var(--bg);box-shadow:0 0 0 2px rgba(245,194,75,.3);}
   .tli.major .dot{background:var(--bear);box-shadow:0 0 0 3px rgba(255,93,108,.35);width:14px;height:14px;top:64px;}
+  .tli.macroev .dot{background:transparent;border-color:var(--gold);transform:translateX(-50%) rotate(45deg);border-radius:2px;}
+  .tli.macroev.impact-H .dot{border-color:var(--bear);}
+  .tli.macroev.impact-L .dot{border-color:var(--muted);}
+  .tli.macroev .t{color:var(--gold);font-size:11px;}
+  .tli.macroev.impact-H .t{color:var(--bear);}
   .tli .lbl{position:absolute;left:50%;transform:translateX(-50%);width:109px;text-align:center;}
   .tli.up .lbl{bottom:88px;}
   .tli.down .lbl{top:88px;}
@@ -104,21 +114,27 @@
   .heat.neutral{color:#f5c24b;background:rgba(245,194,75,.14);} .heat.cool{color:#ff5d6c;background:rgba(255,93,108,.14);}
   .sectile .tks{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:11px;}
   .sectile .rd{font-size:9px;color:var(--muted);line-height:1.32;}
+  .lagstrip{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;align-items:center;}
+  .laglab{font-size:8px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-right:4px;}
+  .lagchip{background:rgba(138,160,192,.1);border:1px solid var(--line);border-radius:5px;padding:2px 7px;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);}
   .catlist{display:grid;grid-template-columns:repeat(3,1fr);gap:17px;flex:1;margin-top:10px;}
   .catcol{display:flex;flex-direction:column;}
   .catgrp{font-size:8px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);font-weight:700;margin:9px 0 4px;padding-bottom:3px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:5px;}
   .catgrp:first-child{margin-top:0;}
   .catgrp .ico{font-size:11px;}
-  .catrow{display:grid;grid-template-columns:40px 36px 1fr;gap:5px;align-items:baseline;padding:3px 0;}
+  .catrow{display:grid;grid-template-columns:44px 36px 1fr;gap:5px;align-items:baseline;padding:3px 0;}
   .catrow+.catrow{border-top:1px solid rgba(29,44,73,.45);}
-  .catrow .tk{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:12px;}
+  .catrow .tk{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:11px;}
   .catrow .mv{font-family:'JetBrains Mono',monospace;font-size:8px;font-weight:700;text-align:right;}
   .catrow .ev{font-size:9px;color:var(--muted);line-height:1.32;}
+  .sdot{font-size:8px;margin-right:3px;}
   .ctag{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:10px;padding:1px 6px;border-radius:5px;letter-spacing:.04em;margin-right:5px;white-space:nowrap;}
   .ctag.earn{color:var(--bear);background:rgba(255,93,108,.15);}
   .ctag.filing{color:var(--gold);background:rgba(245,194,75,.15);}
   .ctag.exd{color:var(--muted);background:rgba(138,160,192,.14);}
   .ctag.brk{color:var(--bull);background:rgba(46,224,138,.15);}
+  .sevdot{font-size:9px;margin-left:5px;}
+  .sevdot.neg{color:var(--bear);} .sevdot.lo{color:#ff9f1c;} .sevdot.neu{color:var(--muted);}
   .setupgrid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px;flex:1;}
   .scard{background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.012));border:1px solid var(--line);border-radius:18px;padding:16px 20px;display:flex;flex-direction:column;box-shadow:0 10px 30px rgba(0,0,0,.35);}
   .schead{display:flex;align-items:center;gap:12px;}
@@ -171,10 +187,10 @@
     <div style="margin-top:10px"><div class="kicker">Momentum Desk · Pre-Market</div>
       <h1 class="title">Morning<br><span class="glow" style="color:var(--gold)">Brief</span></h1></div>
     <div style="display:flex;gap:12px;align-items:center;margin:16px 0 7px">
-      <span class="badge on"><span class="dot"></span>ROTATION / MIXED</span>
-      <span class="sub mono">2026-06-15</span></div>
-    <div class="grid" style="grid-template-columns:repeat(5,1fr);margin-top:14px"><div class="card tile"><span class="lab">S&P fut</span><span class="val">—</span><span class="chg up">▲ 0.00%</span></div><div class="card tile"><span class="lab">Nasdaq fut</span><span class="val">—</span><span class="chg up">▲ 0.00%</span></div><div class="card tile"><span class="lab">Russell</span><span class="val">—</span><span class="chg up">▲ 0.00%</span></div><div class="card tile"><span class="lab">VIX</span><span class="val">—</span><span class="chg up">▲ 0.00%</span></div><div class="card tile"><span class="lab">10Y yield</span><span class="val">—</span><span class="chg up">▲ 0.00%</span></div></div>
-    <div class="read heb" style="margin-top:16px">חוזים ירוקים, הרוח בגב — הסיפור היחיד לכבד: התשואות.</div>
+      <span class="badge on"><span class="dot"></span>RISK-ON</span>
+      <span class="sub mono">2026-06-16</span></div>
+    <div class="grid" style="grid-template-columns:repeat(5,1fr);margin-top:14px"><div class="card tile"><span class="lab">S&P fut</span><span class="val">7,619</span><span class="chg up">▲ 0.76%</span></div><div class="card tile"><span class="lab">Nasdaq fut</span><span class="val">30,814</span><span class="chg up">▲ 0.83%</span></div><div class="card tile"><span class="lab">Russell</span><span class="val">2,992</span><span class="chg up">▲ 0.82%</span></div><div class="card tile"><span class="lab">VIX</span><span class="val">17.68</span><span class="chg down">▼ 9.05%</span></div><div class="card tile"><span class="lab">10Y yield</span><span class="val">4.49%</span><span class="chg up">▲ 0.54%</span></div></div>
+    <div class="read heb" style="margin-top:16px">Risk-on, הרוח בגב — לטייב long עם הסקטור הלוהט.</div>
     <div class="foot"><span>Momentum Morning Brief</span><span>Research aid · not financial advice</span></div>
   </div></section>
 <section data-background-color="#070b14" data-chart="regime">
@@ -183,59 +199,69 @@
     <h2 class="head">The cross-asset tape</h2>
     <p class="sub heb">איך כל שכבות הסיכון מתיישרות — צבע = כיוון, אורך = עוצמה</p>
     <div style="display:grid;grid-template-columns:1.15fr .85fr;gap:30px;flex:1;margin-top:14px;align-items:center">
-      <div style="height:290px"><canvas id="regimeChart"></canvas></div>
-      <div style="display:flex;flex-direction:column;gap:16px"><div class="card tile"><span class="lab">WTI Crude</span><span class="val">—</span><span class="chg up">▲ 0.00%</span></div><div class="card tile"><span class="lab">Gold</span><span class="val">—</span><span class="chg up">▲ 0.00%</span></div><div class="card tile"><span class="lab">Dollar · DXY</span><span class="val">—</span><span class="chg up">▲ 0.00%</span></div><div class="card tile"><span class="lab">Bitcoin</span><span class="val">—</span><span class="chg up">▲ 0.00%</span></div></div>
+      <div><div style="height:258px"><canvas id="regimeChart"></canvas></div><div style="margin-top:8px"><span class="badge on" style="font-size:12px"><span class="dot"></span>RISK-ON</span></div></div>
+      <div style="display:flex;flex-direction:column;gap:16px"><div class="card tile"><span class="lab">WTI Crude</span><span class="val">80.45</span><span class="chg down">▼ 0.37%</span></div><div class="card tile"><span class="lab">Gold</span><span class="val">4,340</span><span class="chg up">▲ 0.27%</span></div><div class="card tile"><span class="lab">Dollar · DXY</span><span class="val">99.78</span><span class="chg neu">■ 0.03%</span></div><div class="card tile"><span class="lab">Bitcoin</span><span class="val">66,043</span><span class="chg up">▲ 0.51%</span></div></div>
     </div>
-    <div class="foot"><span>Regime · ROTATION / MIXED</span><span>2026-06-15</span></div>
+    <div class="foot"><span>Regime · RISK-ON</span><span>2026-06-16</span></div>
   </div></section>
 <section data-background-color="#070b14">
   <div class="frame"><div class="rail"></div>
     <div class="kicker">Smart Read · 01</div>
     <h2 class="head">Risk-on — but not <span style="color:var(--gold)">clean</span></h2>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;flex:1;margin-top:12px">
-      <div class="card" style="border-color:rgba(46,224,138,.4)"><div class="pill" style="background:rgba(46,224,138,.16);color:var(--bull);font-size:10px;padding:4px 10px">TAILWIND</div>
-        <ul class="heb" style="font-size:14px;line-height:1.75;margin-top:9px;color:var(--text)"></ul></div>
-      <div class="card" style="border-color:rgba(255,93,108,.4)"><div class="pill" style="background:rgba(255,93,108,.16);color:var(--bear);font-size:10px;padding:4px 10px">HEADWIND</div>
-        <ul class="heb" style="font-size:14px;line-height:1.75;margin-top:9px;color:var(--text)"><li>= safe-haven bid under the risk-on</li></ul></div>
-    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;flex:1;margin-top:12px"><div class="card" style="border-color:rgba(46,224,138,.4)"><div class="pill" style="background:rgba(46,224,138,.16);color:var(--bull);font-size:10px;padding:4px 10px">TAILWIND</div><ul class="heb" style="font-size:14px;line-height:1.75;margin-top:9px;color:var(--text)"><li><span class="sevdot lo">●</span> חוזים ירוקים +0.8% — bid לאורך הבורסה</li><li><span class="sevdot neg">●</span> VIX יורד 9.1% — הפחד מתפוגג</li><li><span class="sevdot lo">●</span> Russell מוביל +0.8% — תיאבון סיכון רחב</li></ul></div><div class="card" style="border-color:rgba(255,93,108,.4)"><div class="pill" style="background:rgba(255,93,108,.16);color:var(--bear);font-size:10px;padding:4px 10px">HEADWIND</div><ul class="heb" style="font-size:14px;line-height:1.75;margin-top:9px;color:var(--text)"><li><span class="sevdot lo">●</span> תשואות עולות +0.5% — לחץ על duration</li><li><span class="sevdot neu">●</span> זהב +0.3% במקביל לראלי — bid בטוח מתחת</li></ul></div></div>
     <div class="read heb" style="margin-top:14px">זהב שמזנק ביחד עם מניות זה לא risk-on טהור — סוחרים בכיוון, בלי להגדיל סיכון על long-duration.</div>
-    <div class="foot"><span>Interpretation, not in the raw print</span><span>2026-06-15</span></div>
+    <div class="foot"><span>Interpretation, not in the raw print</span><span>2026-06-16</span></div>
   </div></section>
 <section data-background-color="#070b14">
   <div class="frame"><div class="rail"></div>
     <div class="kicker">Layer 2 · Catalyst Calendar</div>
     <h2 class="head">What's binary from here</h2>
-    <div class="timeline2"><div class="tline"></div></div>
+    <div class="timeline2"><div class="tline"></div><div class="tli up" style="left:5%"><div class="lbl"><div class="d mono">Jun 16 · 0d</div><div class="t" style="">GEV<br>ex-div</div></div><div class="dot"></div></div><div class="tli down" style="left:11%"><div class="lbl"><div class="d mono">Jun 17 · 1d</div><div class="t" style="">LRCX<br>ex-div</div></div><div class="dot"></div></div><div class="tli up" style="left:18%"><div class="lbl"><div class="d mono">Jun 18 · 2d</div><div class="t" style="">KLIC<br>ex-div</div></div><div class="dot"></div></div><div class="tli down" style="left:43%"><div class="lbl"><div class="d mono">Jun 22 · 6d</div><div class="t" style="">AVGO · VST<br>ex-div</div></div><div class="dot"></div></div><div class="tli up" style="left:49%"><div class="lbl"><div class="d mono">Jun 23 · 7d</div><div class="t" style="">STM<br>ex-div</div></div><div class="dot"></div></div><div class="tli down major" style="left:55%"><div class="lbl"><div class="d mono">Jun 24 · 8d</div><div class="t" style="color:var(--bear)">MU<br>earnings</div></div><div class="dot"></div></div><div class="tli up major" style="left:62%"><div class="lbl"><div class="d mono">Jun 25 · 9d</div><div class="t" style="color:var(--bear)">BB<br>earnings</div></div><div class="dot"></div></div></div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px">
-      <div class="card" style="display:flex;align-items:center;gap:14px;border-color:rgba(255,93,108,.45)"><div></div></div>
+      <div class="card" style="display:flex;align-items:center;gap:14px;border-color:rgba(255,93,108,.45)"><div><div class="lab" style="color:var(--muted);font-size:11px">MU implied move</div><div class="big" style="color:var(--bear);font-size:52px">±8%</div></div><div class="read heb" style="border:none;background:none;padding:0;font-size:13px">earnings ב-Jun 24 הם הקטליסט הבינארי המרכזי — ה-trim-into-it risk.</div></div>
       <div class="card" style="border-color:rgba(46,224,138,.35)"><div class="pill" style="background:rgba(46,224,138,.16);color:var(--bull)">NEWS · hard catalysts</div>
-        <div class="mono" style="font-size:12px;line-height:1.7;margin-top:7px"><div class="sub">no fresh hard catalysts</div></div></div>
+        <div class="mono" style="font-size:12px;line-height:1.7;margin-top:7px"><div><b class="up">CIFR</b> · Contract · ▲ SEC filing: material agreement signed</div><div><b class="">CRCL</b> · Mgmt · · SEC filing: executive / board change</div><div><b class="">AMD</b> · M&A · · AMD Acquires MEXT to Tackle Data Center Memory Con</div><div><b class="up">COIN</b> · Regulatory · ▲ Coinbase (COIN) Stock Valuation After AI Agents La</div></div></div>
     </div>
-    <div class="foot"><span>Earnings within 14d · ex-div this week</span><span>2026-06-15</span></div>
+    <div class="foot"><span>Earnings within 14d · ex-div this week · macro events ★</span><span>2026-06-16</span></div>
   </div></section>
 <section data-background-color="#070b14">
   <div class="frame"><div class="rail"></div>
     <div class="kicker">Layer 2½ · Market Breadth</div>
     <h2 class="head">Beyond the chip chain</h2>
     <p class="sub heb">איפה זורם כסף בכל השוק — מאקרו למעלה, מפת חום סקטוריאלית למטה.</p>
-    <div class="breadth"><div class="mstrip"><div class="mchip flag"><span class="l">10Y yield</span><span class="v">—</span><span class="c" style="color:var(--gold)">▲ headwind</span></div><div class="mchip"><span class="l">Dollar · DXY</span><span class="v">—</span><span class="c up">▲ 0.00%</span></div><div class="mchip"><span class="l">WTI Crude</span><span class="v">—</span><span class="c up">▲ 0.00%</span></div><div class="mchip"><span class="l">Gold</span><span class="v">—</span><span class="c up">▲ 0.00%</span></div><div class="mchip"><span class="l">Bitcoin</span><span class="v">—</span><span class="c up">▲ 0.00%</span></div></div><div class="secgrid"></div></div>
-    <div class="foot"><span>Cross-sector · from board + macro</span><span>2026-06-15</span></div>
+    <div class="breadth"><div><div class="mstrip"><div class="mchip flag"><span class="l">10Y yield</span><span class="v">4.49%</span><span class="c" style="color:var(--gold)">▲ headwind</span></div><div class="mchip"><span class="l">Dollar · DXY</span><span class="v">99.78</span><span class="c neu">■ 0.03%</span></div><div class="mchip"><span class="l">WTI Crude</span><span class="v">80.45</span><span class="c down">▼ 0.37%</span></div><div class="mchip"><span class="l">Gold</span><span class="v">4,340</span><span class="c up">▲ 0.27%</span></div><div class="mchip"><span class="l">Bitcoin</span><span class="v">66,043</span><span class="c up">▲ 0.51%</span></div></div></div><div class="secgrid"><div class="sectile hot"><div class="sh"><span class="ic">🔧</span><span class="nm">Quantum</span><span class="heat hot">HOT</span></div><div class="tks">ARQQ</div><div class="rd">1 names · avg +31.8% today</div></div><div class="sectile hot"><div class="sh"><span class="ic">🔗</span><span class="nm">Photonics - Lasers</span><span class="heat hot">HOT</span></div><div class="tks">AAOI</div><div class="rd">1 names · avg +13.3% today</div></div><div class="sectile hot"><div class="sh"><span class="ic">🔗</span><span class="nm">Photonics - Foundries</span><span class="heat hot">HOT</span></div><div class="tks">TSEM</div><div class="rd">1 names · avg +9.1% today</div></div><div class="sectile hot"><div class="sh"><span class="ic">🔧</span><span class="nm">Consumer · De-Escalation</span><span class="heat hot">HOT</span></div><div class="tks">HOOD · HIMS</div><div class="rd">2 names · avg +8.9% today</div></div><div class="sectile hot"><div class="sh"><span class="ic">🧠</span><span class="nm">Physical Ai</span><span class="heat hot">HOT</span></div><div class="tks">BOT</div><div class="rd">1 names · avg +8.8% today</div></div><div class="sectile hot"><div class="sh"><span class="ic">🔗</span><span class="nm">Photonics - Materials · Wafers</span><span class="heat hot">HOT</span></div><div class="tks">AXTI · COHR</div><div class="rd">2 names · avg +8.0% today</div></div><div class="sectile hot"><div class="sh"><span class="ic">🧠</span><span class="nm">Ai Software</span><span class="heat hot">HOT</span></div><div class="tks">AIP</div><div class="rd">1 names · avg +6.4% today</div></div><div class="sectile hot"><div class="sh"><span class="ic">💾</span><span class="nm">Memory · Storage</span><span class="heat hot">HOT</span></div><div class="tks">MU · SNDK · WDC</div><div class="rd">4 names · avg +6.1% today</div></div><div class="sectile warm"><div class="sh"><span class="ic">🔧</span><span class="nm">Energy · Defense</span><span class="heat warm">WARM</span></div><div class="tks">BE · CCJ</div><div class="rd">2 names · avg +5.7% today</div></div></div></div>
+    <div class="foot"><span>Cross-sector · from board + macro</span><span>2026-06-16</span></div>
   </div></section>
-<section data-background-color="#070b14" data-chart="torque" data-torque='[]'>
+<section data-background-color="#070b14">
+  <div class="frame"><div class="rail"></div>
+    <div class="kicker">Layer 3 · Ripple Map · the alpha · today's hot sector</div>
+    <h2 class="head" style="font-size:40px">How the bid travels down the chain</h2>
+    <p class="sub heb">כש-MU זז, כל השרשרת מתמחרת מחדש — אלה ה-sympathy plays להיכנס אליהם מוקדם.</p>
+    <div class="ripple">
+      <svg viewBox="0 0 1400 320" preserveAspectRatio="none"><defs>
+        <linearGradient id="flowg" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0" stop-color="#f5c24b"/><stop offset=".5" stop-color="#7fe6a8"/><stop offset="1" stop-color="#34ffa3"/></linearGradient></defs>
+        <path d="M0,90 L233,90 C467,90 467,230 700,230 C933,230 933,90 1167,90 L1400,90" fill="none" stroke="url(#flowg)" stroke-width="5" stroke-linecap="round" opacity=".4"/>
+        <path class="flow" d="M0,90 L233,90 C467,90 467,230 700,230 C933,230 933,90 1167,90 L1400,90" fill="none" stroke="url(#flowg)" stroke-width="5" stroke-linecap="round" stroke-dasharray="3 24"/>
+      </svg><div class="rnode src" style="left:16.7%;top:90px"><span class="ic">🎯</span><span class="nlab">DRIVER</span></div><div class="rnode " style="left:50.0%;top:230px"><span class="ic">📦</span><span class="nlab">ADVANCED PACKAGING & TES</span></div><div class="rnode pk" style="left:83.3%;top:90px"><span class="ic">💾</span><span class="nlab">HBM & MEMORY</span></div><div class="rcard" style="left:16.7%;top:0"><h4>DRIVER</h4><div class="trow"><span class="t">MU</span><span class="m gold">watch into print</span></div></div><div class="rcard" style="left:50.0%;top:238px"><h4>Advanced Packaging & Tes</h4><div class="trow"><span class="t">AMKR</span><span class="m hi">+8.7%</span></div><div class="trow"><span class="t">FORM</span><span class="m hi">+6.9%</span></div><div class="trow"><span class="t">AEHR</span><span class="m mid">+5.3%</span></div><div class="trow"><span class="t">CAMT</span><span class="m mid">+5.0%</span></div></div><div class="rcard" style="left:83.3%;top:0"><h4>HBM & Memory</h4><div class="trow"><span class="t">MRAM</span><span class="m hi">+14.1%</span></div><div class="trow"><span class="t">WDC</span><span class="m hi">+6.4%</span></div><div class="trow"><span class="t">SNDK</span><span class="m mid">+5.2%</span></div></div></div>
+    <div class="foot"><span>Sympathy strength: MU 32.0/100 · Also: AMD, TSM →</span><span>2026-06-16</span></div>
+  </div></section>
+<section data-background-color="#070b14" data-chart="torque" data-torque='[["MRAM", 14.1], ["AMKR", 8.7], ["FORM", 6.9], ["WDC", 6.4], ["AEHR", 5.3], ["SNDK", 5.2], ["CAMT", 5.0]]'>
   <div class="frame"><div class="rail"></div>
     <div class="kicker">Ripple Map · ranked</div>
     <h2 class="head">Where the torque is</h2>
     <p class="sub heb">השמות עם התנועה החזקה ביותר בשרשרת — לפי % היום</p>
-    <div style="height:330px;margin-top:10px;overflow:hidden"><canvas id="torqueChart"></canvas></div>
-    <div class="foot"><span>Daily % move · ripple chain</span><span>2026-06-15</span></div>
+    <div style="width:88%;margin:10px auto 0;height:290px;overflow:hidden"><canvas id="torqueChart"></canvas></div>
+    
+    <div class="foot"><span>Daily % move · ripple chain</span><span>2026-06-16</span></div>
   </div></section>
 <section data-background-color="#070b14">
   <div class="frame"><div class="rail"></div>
     <div class="kicker">Layer 4 · Catalyst Watchlist</div>
     <h2 class="head">The connected universe</h2>
     <p class="sub heb">כל השמות שנעים עם הקטליסט של היום — לפי סקטור, וכל אחד והקטליסט שלו.</p>
-    <div class="catlist"><div class="catcol"></div><div class="catcol"></div><div class="catcol"></div></div>
-    <div class="foot"><span>EARN · 8-K · EX-DIV · ranked by conviction score</span><span>2026-06-15</span></div>
+    <div class="catlist"><div class="catcol"><div class="catgrp"><span class="ico">🛠️</span>Semicap · Wfe</div><div class="catrow"><span class="tk"><span class="sdot md">●</span>UCTT</span><span class="mv up">+3.9%</span><span class="ev">breakout setup (2.5:1 reward/risk)</span></div><div class="catrow"><span class="tk"><span class="sdot md">●</span>LRCX</span><span class="mv up">+1.2%</span><span class="ev"><span class="ctag exd">EX-DIV</span>Jun 17 · Semicap / Wfe</span></div><div class="catrow"><span class="tk"><span class="sdot down">●</span>AEIS</span><span class="mv up">+4.6%</span><span class="ev"><span class="ctag filing">8-K</span>SEC filing: other material event</span></div><div class="catrow"><span class="tk"><span class="sdot down">●</span>COHU</span><span class="mv up">+4.7%</span><span class="ev">gapping +4% pre-market</span></div><div class="catrow"><span class="tk"><span class="sdot down">●</span>MKSI</span><span class="mv up">+3.0%</span><span class="ev">at 52-week high</span></div><div class="catrow"><span class="tk"><span class="sdot down">●</span>KLAC</span><span class="mv up">+0.7%</span><span class="ev">momentum-continuation setup (2.3:1 reward/ris</span></div><div class="catgrp"><span class="ico">🧠</span>Ai Software</div><div class="catrow"><span class="tk"><span class="sdot md">●</span>AIP</span><span class="mv up">+6.4%</span><span class="ev">momentum-continuation setup (2.3:1 reward/ris</span></div><div class="catgrp"><span class="ico">🔗</span>Data Movement · Networ</div><div class="catrow"><span class="tk"><span class="sdot down">●</span>ALAB</span><span class="mv neu">-0.1%</span><span class="ev">gapping +6% pre-market</span></div></div><div class="catcol"><div class="catgrp"><span class="ico">💾</span>Memory · Storage</div><div class="catrow"><span class="tk"><span class="sdot md">●</span>MU</span><span class="mv down">-1.4%</span><span class="ev"><span class="ctag earn">EARN Jun 24</span>Memory / Storage</span></div><div class="catrow"><span class="tk"><span class="sdot md">●</span>SNDK</span><span class="mv up">+5.2%</span><span class="ev">MU supply-chain play (2nd-order)</span></div><div class="catrow"><span class="tk"><span class="sdot down">●</span>WDC</span><span class="mv up">+6.4%</span><span class="ev">MU supply-chain play (2nd-order)</span></div><div class="catgrp"><span class="ico">🔧</span>Other</div><div class="catrow"><span class="tk"><span class="sdot down">●</span>NVMI</span><span class="mv up">+4.2%</span><span class="ev">at 52-week high</span></div><div class="catrow"><span class="tk"><span class="sdot down">●</span>CAMT</span><span class="mv up">+5.0%</span><span class="ev">MU supply-chain play (1st-order)</span></div><div class="catgrp"><span class="ico">🔧</span>Crypto · Mining</div><div class="catrow"><span class="tk"><span class="sdot down">●</span>CIFR</span><span class="mv up">+6.2%</span><span class="ev"><span class="ctag filing">8-K</span>SEC filing: material agreement signed</span></div></div><div class="catcol"><div class="catgrp"><span class="ico">📦</span>Abf · Packaging · Mate</div><div class="catrow"><span class="tk"><span class="sdot md">●</span>AMAT</span><span class="mv up">+2.6%</span><span class="ev"><span class="ctag filing">8-K</span>Applied Materials Unveils Deposition and Sele</span></div><div class="catrow"><span class="tk"><span class="sdot md">●</span>AMKR</span><span class="mv up">+8.7%</span><span class="ev">MU supply-chain play (1st-order)</span></div><div class="catgrp"><span class="ico">🧠</span>Ai Core</div><div class="catrow"><span class="tk"><span class="sdot md">●</span>AMD</span><span class="mv up">+4.7%</span><span class="ev"><span class="ctag filing">8-K</span>AMD Acquires MEXT to Tackle Data Center Memor</span></div><div class="catrow"><span class="tk"><span class="sdot down">●</span>INTC</span><span class="mv up">+6.5%</span><span class="ev"><span class="ctag filing">8-K</span>Google Just Went All in on Its Deal With Inte</span></div><div class="catgrp"><span class="ico">🔌</span>Power Semis</div><div class="catrow"><span class="tk"><span class="sdot down">●</span>ALGM</span><span class="mv up">+9.1%</span><span class="ev">gapping +9% pre-market</span></div><div class="catrow"><span class="tk"><span class="sdot down">●</span>ADI</span><span class="mv up">+1.4%</span><span class="ev">at 52-week high</span></div></div></div>
+    <div class="foot"><span>EARN · 8-K · EX-DIV · ranked by conviction score</span><span>2026-06-16</span></div>
   </div></section>
 <section data-background-color="#070b14"><style>
     .su4{position:absolute;inset:0;display:block;overflow:hidden;background:#070b14;color:#e9eef6;font-family:"Space Grotesk",system-ui,sans-serif;-webkit-font-smoothing:antialiased;}
@@ -251,7 +277,7 @@
     .su4-rows{position:absolute;left:50px;right:50px;top:145px;z-index:2;}
     .su4-row{white-space:nowrap;font-size:0;padding:7px 0;border-bottom:1px solid rgba(29,44,73,.6);}
     .su4-col{display:inline-block;vertical-align:top;white-space:normal;box-sizing:border-box;padding-right:10px;}
-    .su4-c1{width:110px;} .su4-c2{width:230px;} .su4-c3{width:52px;text-align:center;padding-right:0;} .su4-c4{width:calc(100% - 110px - 230px - 52px);padding-right:0;}
+    .su4-c1{width:110px;} .su4-c2{width:230px;} .su4-c3{width:64px;text-align:center;padding-right:0;} .su4-c4{width:calc(100% - 110px - 230px - 64px);padding-right:0;}
     .su4-tk{font-family:"JetBrains Mono",monospace;font-size:15px;font-weight:700;color:#e9eef6;line-height:1.1;}
     .su4-ch{display:inline-block;margin-top:3px;font-family:"JetBrains Mono",monospace;font-size:8px;letter-spacing:.07em;text-transform:uppercase;padding:1px 5px;border-radius:3px;border:1px solid currentColor;}
     .su4-hi{color:#2ee08a;} .su4-md{color:#f5c24b;} .su4-rp{color:#f5c24b;} .su4-mo{color:#5aa9ff;}
@@ -261,25 +287,28 @@
     .su4-meta{font-family:"JetBrains Mono",monospace;font-size:8px;color:#8aa0c0;margin-top:2px;}
     .su4-rr{font-family:"JetBrains Mono",monospace;font-size:15px;font-weight:700;color:#f5c24b;line-height:1.1;}
     .su4-rrl{font-size:8px;color:#8aa0c0;letter-spacing:.1em;}
+    .su4-rrbar{display:inline-block;width:44px;height:5px;border-radius:3px;overflow:hidden;margin-top:3px;border:1px solid #1d2c49;}
+    .su4-rrbar i{display:inline-block;height:100%;vertical-align:top;}
+    .su4-rrbar .g{background:#2ee08a;} .su4-rrbar .r{background:#ff5d6c;}
     .su4-why{font-family:"Heebo",sans-serif;direction:rtl;text-align:right;font-size:11px;line-height:1.4;color:#e9eef6;}
     .su4-foot{position:absolute;left:50px;right:50px;bottom:13px;z-index:2;font-family:"JetBrains Mono",monospace;font-size:9px;color:#8aa0c0;white-space:nowrap;}
     .su4-foot .su4-dt{float:right;color:#5aa9ff;}
-    </style><div class="su4"><div class="su4-rail"></div><div class="su4-hdr"><p class="su4-kicker">Layer 4 · Actionable Setups</p><h2 class="su4-h2">Why these trades</h2><p class="su4-sub">6 הטריידים המובילים — S=stop · E=entry · T=target, פרטים טכניים, והסיבה.</p></div><div class="su4-colhd"><span class="su4-col su4-c1">Ticker</span><span class="su4-col su4-c2">Stop · Entry · Target + technicals</span><span class="su4-col su4-c3">R:R</span><span class="su4-col su4-c4" style="text-align:right;">Why</span></div><div class="su4-sep"></div><div class="su4-rows"></div><div class="su4-foot">levels = detected setup or technical · WHY = catalyst<span class="su4-dt">2026-06-15</span></div></div></section>
+    </style><div class="su4"><div class="su4-rail"></div><div class="su4-hdr"><p class="su4-kicker">Layer 4 · Actionable Setups</p><h2 class="su4-h2">Why these trades</h2><p class="su4-sub">6 הטריידים המובילים — S=stop · E=entry · T=target, פרטים טכניים, והסיבה.</p></div><div class="su4-colhd"><span class="su4-col su4-c1">Ticker</span><span class="su4-col su4-c2">Stop · Entry · Target + technicals</span><span class="su4-col su4-c3">R:R</span><span class="su4-col su4-c4" style="text-align:right;">Why</span></div><div class="su4-sep"></div><div class="su4-rows"><div class="su4-row"><span class="su4-col su4-c1"><span class="su4-tk">AMAT</span><br><span class="su4-ch su4-md">MED</span> <span class="su4-ch su4-mo">Breakout</span></span><span class="su4-col su4-c2"><span class="su4-lvls"><span class="su4-lv su4-s">S <b>$533.05</b></span><span class="su4-lv su4-e">E <b>$573.31</b></span><span class="su4-lv su4-t">T <b>$673.96</b></span></span><div class="su4-meta">RSI 77 · -2% from high · wk +25%</div></span><span class="su4-col su4-c3"><span class="su4-rr">2.5:1</span><br><span class="su4-rrbar"><i class="g" style="width:71%"></i><i class="r" style="width:29%"></i></span><br><span class="su4-rrl">R:R</span></span><span class="su4-col su4-c4"><span class="su4-why">product news · breakout setup (2.5:1 reward/risk) · at 52-week high</span></span></div><div class="su4-row"><span class="su4-col su4-c1"><span class="su4-tk">UCTT</span><br><span class="su4-ch su4-md">MED</span> <span class="su4-ch su4-mo">Breakout</span></span><span class="su4-col su4-c2"><span class="su4-lvls"><span class="su4-lv su4-s">S <b>$101.22</b></span><span class="su4-lv su4-e">E <b>$111.07</b></span><span class="su4-lv su4-t">T <b>$135.7</b></span></span><div class="su4-meta">RSI 70 · -2% from high · wk +33%</div></span><span class="su4-col su4-c3"><span class="su4-rr">2.5:1</span><br><span class="su4-rrbar"><i class="g" style="width:71%"></i><i class="r" style="width:29%"></i></span><br><span class="su4-rrl">R:R</span></span><span class="su4-col su4-c4"><span class="su4-why">breakout setup (2.5:1 reward/risk) · at 52-week high · up 33% this week</span></span></div><div class="su4-row"><span class="su4-col su4-c1"><span class="su4-tk">AIP</span><br><span class="su4-ch su4-md">MED</span> <span class="su4-ch su4-mo">Momentum-Cont</span></span><span class="su4-col su4-c2"><span class="su4-lvls"><span class="su4-lv su4-s">S <b>$39.57</b></span><span class="su4-lv su4-e">E <b>$43.97</b></span><span class="su4-lv su4-t">T <b>$54.22</b></span></span><div class="su4-meta">RSI 64 · -0% from high · wk +24%</div></span><span class="su4-col su4-c3"><span class="su4-rr">2.3:1</span><br><span class="su4-rrbar"><i class="g" style="width:70%"></i><i class="r" style="width:30%"></i></span><br><span class="su4-rrl">R:R</span></span><span class="su4-col su4-c4"><span class="su4-why">momentum-continuation setup (2.3:1 reward/risk) · gapping +6% pre-market · at 52-week high</span></span></div><div class="su4-row"><span class="su4-col su4-c1"><span class="su4-tk">LRCX</span><br><span class="su4-ch su4-md">MED</span> <span class="su4-ch su4-mo">Breakout</span></span><span class="su4-col su4-c2"><span class="su4-lvls"><span class="su4-lv su4-s">S <b>$348.71</b></span><span class="su4-lv su4-e">E <b>$376.1</b></span><span class="su4-lv su4-t">T <b>$444.59</b></span></span><div class="su4-meta">RSI 69 · -1% from high · wk +21%</div></span><span class="su4-col su4-c3"><span class="su4-rr">2.5:1</span><br><span class="su4-rrbar"><i class="g" style="width:71%"></i><i class="r" style="width:29%"></i></span><br><span class="su4-rrl">R:R</span></span><span class="su4-col su4-c4"><span class="su4-why">breakout setup (2.5:1 reward/risk) · at 52-week high · up 21% this week</span></span></div><div class="su4-row"><span class="su4-col su4-c1"><span class="su4-tk">SNDK</span><br><span class="su4-ch su4-md">MED</span> <span class="su4-ch su4-rp">Ripple</span></span><span class="su4-col su4-c2"><span class="su4-lvls"><span class="su4-lv su4-s">S <b>$1841.49</b></span><span class="su4-lv su4-e">E <b>$1980.1</b></span><span class="su4-lv su4-t">T <b>$2300.64</b></span></span><div class="su4-meta">RSI 72 · -1% from high · wk +27%</div></span><span class="su4-col su4-c3"><span class="su4-rr">2.3:1</span><br><span class="su4-rrbar"><i class="g" style="width:70%"></i><i class="r" style="width:30%"></i></span><br><span class="su4-rrl">R:R</span></span><span class="su4-col su4-c4"><span class="su4-why">MU supply-chain play (2nd-order) · at 52-week high · up 27% this week</span></span></div><div class="su4-row"><span class="su4-col su4-c1"><span class="su4-tk">AMKR</span><br><span class="su4-ch su4-md">MED</span> <span class="su4-ch su4-rp">Ripple</span></span><span class="su4-col su4-c2"><span class="su4-lvls"><span class="su4-lv su4-s">S <b>$73.44</b></span><span class="su4-lv su4-e">E <b>$83.64</b></span><span class="su4-lv su4-t">T <b>$107.44</b></span></span><div class="su4-meta">RSI 68 · -4% from high · wk +27%</div></span><span class="su4-col su4-c3"><span class="su4-rr">2.3:1</span><br><span class="su4-rrbar"><i class="g" style="width:70%"></i><i class="r" style="width:30%"></i></span><br><span class="su4-rrl">R:R</span></span><span class="su4-col su4-c4"><span class="su4-why">MU supply-chain play (1st-order) · momentum-continuation setup (2.3:1 reward/risk) · up 27% this week</span></span></div></div><div class="su4-foot">levels = detected setup or technical · WHY = catalyst<span class="su4-dt">2026-06-16</span></div></div></section>
 <section data-background-color="#070b14">
   <div class="frame"><div class="rail"></div>
     <div class="kicker">The Desk Read</div>
     <h2 class="head">One screen, one read</h2>
     <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:13px;margin-top:14px">
       <div class="card"><div class="pill" style="background:rgba(46,224,138,.16);color:var(--bull);font-size:10px;padding:4px 10px">REGIME</div>
-        <p class="heb" style="font-size:14px;line-height:1.5;margin-top:8px;margin-bottom:0">Risk-on (ROTATION / MIXED). ה-headwind: yields. זהב עולה במקביל = לא נקי.</p></div>
+        <p class="heb" style="font-size:14px;line-height:1.5;margin-top:8px;margin-bottom:0">Risk-on (RISK-ON). ה-headwind: yields. זהב עולה במקביל = לא נקי.</p></div>
       <div class="card"><div class="pill" style="background:rgba(255,93,108,.16);color:var(--bear);font-size:10px;padding:4px 10px">RISK</div>
-        <p class="heb" style="font-size:14px;line-height:1.5;margin-top:8px;margin-bottom:0">אין earnings בינארי קרוב.</p></div>
+        <p class="heb" style="font-size:14px;line-height:1.5;margin-top:8px;margin-bottom:0">MU earnings ב-Jun 24 — ה-trim-into-it.</p></div>
       <div class="card"><div class="pill" style="background:rgba(245,194,75,.18);color:var(--gold);font-size:10px;padding:4px 10px">ALPHA</div>
-        <p class="heb" style="font-size:14px;line-height:1.5;margin-top:8px;margin-bottom:0">שרשרת —: השמות עם ה-torque מובילים, ה-read-through הפחות מתוח עדיף.</p></div>
+        <p class="heb" style="font-size:14px;line-height:1.5;margin-top:8px;margin-bottom:0">שרשרת MU: השמות עם ה-torque מובילים, ה-read-through הפחות מתוח עדיף.</p></div>
     </div>
     <div class="card" style="margin-top:16px;border-color:rgba(245,194,75,.4);background:rgba(245,194,75,.05)">
-      <p class="heb glow" style="font-size:19px;line-height:1.5;margin:0;color:var(--text)">נכנסים בכיוון השוק דרך הסקטור הלוהט, מעדיפים שמות שעוד לא רצו, ומקטינים סיכון לתוך ה-earnings.</p></div>
-    <div class="foot"><span>Momentum Morning Brief · 2026-06-15</span><span>Research aid · not financial advice</span></div>
+      <p class="heb glow" style="font-size:19px;line-height:1.5;margin:0;color:var(--text)">RISK-ON — נכנסים בכיוון השוק דרך הסקטור הלוהט עם stop ברור.</p></div>
+    <div class="foot"><span>Momentum Morning Brief · 2026-06-16</span><span>Research aid · not financial advice</span></div>
   </div></section>
 </div></div>
 <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
@@ -288,7 +317,7 @@
   Reveal.initialize({hash:true, slideNumber:'c/t', transition:'slide', backgroundTransition:'fade', width:1024, height:576, margin:0.02, minScale:0.1, maxScale:3.0, controlsTutorial:false, touch:true});
   const BULL='#2ee08a',BEAR='#ff5d6c',GOLD='#f5c24b',MUTED='#8aa0c0',GRID='rgba(29,44,73,.7)';
   Chart.defaults.color=MUTED; Chart.defaults.font.family="'JetBrains Mono', monospace";
-  const done={}; const REGIME=[{"l": "Russell", "v": 0, "c": "#2ee08a"}, {"l": "Nasdaq", "v": 0, "c": "#2ee08a"}, {"l": "S&P", "v": 0, "c": "#2ee08a"}, {"l": "Bitcoin", "v": 0, "c": "#2ee08a"}, {"l": "10Y yield", "v": 0, "c": "#f5c24b"}, {"l": "DXY", "v": 0, "c": "#2ee08a"}, {"l": "WTI Crude", "v": 0, "c": "#2ee08a"}, {"l": "VIX", "v": 0, "c": "#2ee08a"}];
+  const done={}; const REGIME=[{"l": "Russell", "v": 0.82, "c": "#2ee08a"}, {"l": "Nasdaq", "v": 0.83, "c": "#2ee08a"}, {"l": "S&P", "v": 0.76, "c": "#2ee08a"}, {"l": "Bitcoin", "v": 0.51, "c": "#2ee08a"}, {"l": "10Y yield", "v": 0.54, "c": "#f5c24b"}, {"l": "DXY", "v": 0.03, "c": "#8aa0c0"}, {"l": "WTI Crude", "v": -0.37, "c": "#ff5d6c"}, {"l": "VIX", "v": -9.05, "c": "#ff5d6c"}];
   function initRegime(){const el=document.getElementById('regimeChart');if(!el)return;
     new Chart(el,{type:'bar',data:{labels:REGIME.map(d=>d.l),datasets:[{data:REGIME.map(d=>d.v),backgroundColor:REGIME.map(d=>d.c),borderRadius:6,barThickness:30}]},
      options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.raw+'%'}}},
