@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="he">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Momentum Morning Brief</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;600;800;900&family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a0f1a; --bg2:#070b14; --panel:#121d33; --panel2:#0e1729;
+    --gold:#f5c24b; --gold-dim:#caa96b; --text:#e9eef6; --muted:#8aa0c0;
+    --bull:#2ee08a; --bear:#ff5d6c; --line:#1d2c49; --blue:#5aa9ff; --violet:#a78bfa;
+  }
+  .reveal{font-family:'Space Grotesk','Heebo',system-ui,sans-serif;color:var(--text);}
+  .reveal .slides{text-align:left;}
+  .reveal .slides section{height:100%;}
+  html,body{background:var(--bg2);}
+  .reveal .slides section, .reveal .slides section>section{padding:0;}
+  .heb{font-family:'Heebo',sans-serif;direction:rtl;}
+  .mono{font-family:'JetBrains Mono',monospace;}
+  .frame{position:absolute;inset:0;padding:38px 50px 36px;display:flex;flex-direction:column;
+    background:radial-gradient(900px 400px at 85% -10%, rgba(245,194,75,.07), transparent 60%),
+      radial-gradient(600px 350px at -5% 110%, rgba(90,169,255,.08), transparent 60%),
+      linear-gradient(180deg,var(--bg),var(--bg2));overflow:hidden;}
+  .frame::before{content:"";position:absolute;inset:0;
+    background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
+    background-size:30px 30px;opacity:.18;mask-image:radial-gradient(circle at 50% 40%,#000 30%,transparent 78%);-webkit-mask-image:radial-gradient(circle at 50% 40%,#000 30%,transparent 78%);}
+  .rail{position:absolute;left:0;top:0;bottom:0;width:5px;background:linear-gradient(180deg,var(--gold),#b8851f);}
+  .kicker{font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:4px;}
+  h1.title{font-size:54px;font-weight:700;line-height:.98;margin:0;letter-spacing:-.02em;}
+  h2.head{font-size:30px;font-weight:700;margin:0 0 3px;letter-spacing:-.01em;}
+  .sub{color:var(--muted);font-size:14px;margin:0;}
+  .foot{position:absolute;left:50px;right:50px;bottom:13px;display:flex;justify-content:space-between;font-size:9px;color:var(--muted);letter-spacing:.04em;}
+  .badge{display:inline-flex;align-items:center;gap:6px;padding:6px 13px;border-radius:999px;font-weight:700;font-size:14px;letter-spacing:.06em;}
+  .badge.on{background:rgba(46,224,138,.14);color:var(--bull);border:1px solid rgba(46,224,138,.4);}
+  .badge.off{background:rgba(255,93,108,.14);color:var(--bear);border:1px solid rgba(255,93,108,.4);}
+  .badge.neu{background:rgba(245,194,75,.14);color:var(--gold);border:1px solid rgba(245,194,75,.4);}
+  .dot{width:8px;height:8px;border-radius:50%;background:var(--bull);box-shadow:0 0 0 0 rgba(46,224,138,.6);animation:pulse 1.8s infinite;}
+  .badge.off .dot{background:var(--bear);animation:none;box-shadow:none;}
+  .badge.neu .dot{background:var(--gold);animation:none;box-shadow:none;}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(46,224,138,.55)}70%{box-shadow:0 0 0 10px rgba(46,224,138,0)}100%{box-shadow:0 0 0 0 rgba(46,224,138,0)}}
+  .grid{display:grid;gap:12px;}
+  .card{background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.01));border:1px solid var(--line);border-radius:12px;padding:13px 14px;backdrop-filter:blur(4px);box-shadow:0 6px 20px rgba(0,0,0,.35);}
+  .tile{display:flex;flex-direction:column;gap:1px;}
+  .tile .lab{font-size:10px;color:var(--muted);letter-spacing:.04em;}
+  .tile .val{font-size:22px;font-weight:700;font-family:'JetBrains Mono',monospace;}
+  .tile .chg{font-size:13px;font-weight:700;font-family:'JetBrains Mono',monospace;}
+  .up{color:var(--bull);} .down{color:var(--bear);} .neu{color:var(--muted);}
+  .md{color:var(--gold);}
+  .pill{display:inline-block;padding:3px 8px;border-radius:5px;font-size:10px;font-weight:600;}
+  .read{border-left:2px solid var(--gold);background:rgba(245,194,75,.06);border-radius:0 9px 9px 0;padding:10px 13px;font-size:15px;line-height:1.45;}
+  .read.heb{border-left:none;border-right:2px solid var(--gold);border-radius:9px 0 0 9px;}
+  .big{font-size:82px;font-weight:700;font-family:'JetBrains Mono',monospace;line-height:1;letter-spacing:-.03em;}
+  .timeline{position:relative;margin-top:19px;height:100px;}
+  .tl-axis{position:absolute;top:50px;left:0;right:0;height:2px;background:var(--line);}
+  .tl-axis::after{content:"";position:absolute;left:0;height:2px;width:100%;background:linear-gradient(90deg,var(--bull),var(--gold) 70%,var(--bear));opacity:.5;}
+  .tl-item{position:absolute;top:0;transform:translateX(-50%);text-align:center;width:90px;}
+  .tl-item .mk{width:10px;height:10px;border-radius:50%;background:var(--gold);margin:47px auto 0;border:2px solid var(--bg);box-shadow:0 0 0 2px rgba(245,194,75,.3);}
+  .tl-item.major .mk{background:var(--bear);box-shadow:0 0 0 3px rgba(255,93,108,.35);width:14px;height:14px;margin-top:45px;}
+  .tl-item .d{font-size:10px;color:var(--muted);font-family:'JetBrains Mono',monospace;}
+  .tl-item .t{font-weight:700;font-size:14px;}
+  .tl-item.below{top:61px;}
+  .tl-item.below .mk{margin:0 auto 4px;order:-1;}
+  .timeline2{position:relative;height:150px;margin-top:14px;}
+  .tline{position:absolute;left:0;right:0;top:72px;height:2px;background:linear-gradient(90deg,var(--bull),var(--gold) 70%,var(--bear));opacity:.55;}
+  .tli{position:absolute;left:0;top:0;height:150px;transform:translateX(-50%);}
+  .tli .dot{position:absolute;left:50%;top:66px;transform:translateX(-50%);width:11px;height:11px;border-radius:50%;background:var(--gold);border:2px solid var(--bg);box-shadow:0 0 0 2px rgba(245,194,75,.3);}
+  .tli.major .dot{background:var(--bear);box-shadow:0 0 0 3px rgba(255,93,108,.35);width:14px;height:14px;top:64px;}
+  .tli.macroev .dot{background:transparent;border-color:var(--gold);transform:translateX(-50%) rotate(45deg);border-radius:2px;}
+  .tli.macroev.impact-H .dot{border-color:var(--bear);}
+  .tli.macroev.impact-L .dot{border-color:var(--muted);}
+  .tli.macroev .t{color:var(--gold);font-size:11px;}
+  .tli.macroev.impact-H .t{color:var(--bear);}
+  .tli .lbl{position:absolute;left:50%;transform:translateX(-50%);width:109px;text-align:center;}
+  .tli.up .lbl{bottom:88px;}
+  .tli.down .lbl{top:88px;}
+  .tli .d{font-size:10px;color:var(--muted);font-family:'JetBrains Mono',monospace;}
+  .tli .t{font-weight:700;font-size:13px;line-height:1.15;margin-top:2px;}
+  .ripple{position:relative;height:320px;margin-top:3px;}
+  .ripple svg{position:absolute;inset:0;width:100%;height:100%;z-index:1;overflow:visible;}
+  .flow{animation:dash 1.1s linear infinite;}
+  @keyframes dash{to{stroke-dashoffset:-26;}}
+  .rnode{position:absolute;transform:translate(-50%,-50%);width:70px;height:70px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;z-index:3;background:radial-gradient(circle at 32% 26%,rgba(255,255,255,.14),rgba(16,26,46,.98));border:2px solid var(--line);box-shadow:0 8px 22px rgba(0,0,0,.55);}
+  .rnode .ic{font-size:27px;line-height:1;}
+  .rnode .nlab{font-size:7px;letter-spacing:.12em;color:var(--muted);font-weight:700;}
+  .rnode.src{border-color:var(--gold);box-shadow:0 0 22px rgba(245,194,75,.4);}
+  .rnode.src .nlab{color:var(--gold);}
+  .rnode.pk{border-color:rgba(46,224,138,.7);box-shadow:0 0 19px rgba(46,224,138,.3);}
+  .rcard{position:absolute;transform:translateX(-50%);width:162px;z-index:2;background:linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.015));border:1px solid var(--line);border-radius:10px;padding:7px 9px;backdrop-filter:blur(5px);box-shadow:0 8px 22px rgba(0,0,0,.45);}
+  .rcard h4{margin:0 0 4px;font-size:8px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);text-align:center;}
+  .trow{display:flex;justify-content:space-between;align-items:center;font-family:'JetBrains Mono',monospace;font-size:13px;padding:2px 2px;}
+  .trow+.trow{border-top:1px solid rgba(29,44,73,.6);}
+  .trow .t{font-weight:700;}
+  .trow .m{font-weight:700;}
+  .m.hi{color:#34ffa3;text-shadow:0 0 14px rgba(52,255,163,.5);}
+  .m.mid{color:#2ee08a;} .m.lo{color:#ff9f1c;} .m.neg{color:#ff5d6c;} .m.gold{color:var(--gold);}
+  .breadth{display:flex;flex-direction:column;gap:10px;flex:1;margin-top:10px;}
+  .mstrip{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;}
+  .mchip{background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:8px;padding:6px 9px;display:flex;flex-direction:column;gap:1px;}
+  .mchip .l{font-size:8px;color:var(--muted);letter-spacing:.04em;}
+  .mchip .v{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:13px;}
+  .mchip .c{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:9px;}
+  .mchip.flag{border-color:rgba(245,194,75,.5);background:rgba(245,194,75,.06);}
+  .secgrid{display:grid;grid-template-columns:repeat(3,1fr);grid-auto-rows:1fr;gap:9px;flex:1;}
+  .sectile{background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.012));border:1px solid var(--line);border-left:3px solid var(--line);border-radius:9px;padding:8px 10px;display:flex;flex-direction:column;gap:3px;box-shadow:0 5px 14px rgba(0,0,0,.3);}
+  .sectile.hot{border-left-color:#34ffa3;} .sectile.warm{border-left-color:#2ee08a;}
+  .sectile.neutral{border-left-color:#f5c24b;} .sectile.cool{border-left-color:#ff5d6c;}
+  .sectile .sh{display:flex;align-items:center;gap:6px;}
+  .sectile .sh .ic{font-size:16px;} .sectile .sh .nm{font-weight:700;font-size:13px;}
+  .sectile .heat{margin-left:auto;font-size:7px;font-weight:700;letter-spacing:.1em;padding:2px 6px;border-radius:999px;}
+  .heat.hot{color:#34ffa3;background:rgba(52,255,163,.14);} .heat.warm{color:#2ee08a;background:rgba(46,224,138,.12);}
+  .heat.neutral{color:#f5c24b;background:rgba(245,194,75,.14);} .heat.cool{color:#ff5d6c;background:rgba(255,93,108,.14);}
+  .sectile .tks{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:11px;}
+  .sectile .rd{font-size:9px;color:var(--muted);line-height:1.32;}
+  .lagstrip{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;align-items:center;}
+  .laglab{font-size:8px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-right:4px;}
+  .lagchip{background:rgba(138,160,192,.1);border:1px solid var(--line);border-radius:5px;padding:2px 7px;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);}
+  .catlist{display:grid;grid-template-columns:repeat(3,1fr);gap:17px;flex:1;margin-top:10px;}
+  .catcol{display:flex;flex-direction:column;}
+  .catgrp{font-size:8px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);font-weight:700;margin:9px 0 4px;padding-bottom:3px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:5px;}
+  .catgrp:first-child{margin-top:0;}
+  .catgrp .ico{font-size:11px;}
+  .catrow{display:grid;grid-template-columns:44px 36px 1fr;gap:5px;align-items:baseline;padding:3px 0;}
+  .catrow+.catrow{border-top:1px solid rgba(29,44,73,.45);}
+  .catrow .tk{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:11px;}
+  .catrow .mv{font-family:'JetBrains Mono',monospace;font-size:8px;font-weight:700;text-align:right;}
+  .catrow .ev{font-size:9px;color:var(--muted);line-height:1.32;}
+  .sdot{font-size:8px;margin-right:3px;}
+  .ctag{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:10px;padding:1px 6px;border-radius:5px;letter-spacing:.04em;margin-right:5px;white-space:nowrap;}
+  .ctag.earn{color:var(--bear);background:rgba(255,93,108,.15);}
+  .ctag.filing{color:var(--gold);background:rgba(245,194,75,.15);}
+  .ctag.exd{color:var(--muted);background:rgba(138,160,192,.14);}
+  .ctag.brk{color:var(--bull);background:rgba(46,224,138,.15);}
+  .sevdot{font-size:9px;margin-left:5px;}
+  .sevdot.neg{color:var(--bear);} .sevdot.lo{color:#ff9f1c;} .sevdot.neu{color:var(--muted);}
+  .setupgrid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px;flex:1;}
+  .scard{background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.012));border:1px solid var(--line);border-radius:18px;padding:16px 20px;display:flex;flex-direction:column;box-shadow:0 10px 30px rgba(0,0,0,.35);}
+  .schead{display:flex;align-items:center;gap:12px;}
+  .schead .stk{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:30px;}
+  .stag{font-size:13px;font-weight:700;font-family:'JetBrains Mono',monospace;padding:3px 11px;border-radius:8px;letter-spacing:.03em;}
+  .stag.ripple{color:var(--gold);background:rgba(245,194,75,.14);}
+  .stag.mom{color:var(--blue);background:rgba(90,169,255,.14);}
+  .conv{margin-left:auto;font-size:12px;font-weight:700;letter-spacing:.1em;padding:3px 12px;border-radius:999px;}
+  .conv.high{color:var(--bull);background:rgba(46,224,138,.14);}
+  .conv.med{color:var(--gold);background:rgba(245,194,75,.14);}
+  .lvls{display:flex;align-items:flex-end;gap:18px;margin:12px 0 7px;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.1em;color:var(--muted);text-transform:uppercase;}
+  .lvls b{font-size:19px;display:block;letter-spacing:0;}
+  .lvls .rrx{margin-left:auto;font-size:13px;text-align:right;}
+  .lvls .rrx b{font-size:25px;color:var(--gold);}
+  .hbar{height:11px;border-radius:6px;overflow:hidden;display:flex;border:1px solid var(--line);}
+  .hbar i{display:block;height:100%;}
+  .hbar .r{background:linear-gradient(90deg,rgba(255,93,108,.75),rgba(255,93,108,.4));}
+  .hbar .g{background:linear-gradient(90deg,rgba(46,224,138,.4),rgba(46,224,138,.75));}
+  .why{margin-top:13px;}
+  .wlab{font-size:12px;letter-spacing:.18em;color:var(--gold);font-weight:700;margin-bottom:7px;}
+  .why ul{margin:0;padding:0;list-style:none;direction:rtl;}
+  .why li{font-size:16.5px;line-height:1.42;color:var(--text);padding-right:20px;position:relative;margin-bottom:6px;text-align:right;}
+  .why li::before{content:"\25B8";position:absolute;right:0;color:var(--gold);}
+  .setups-table{width:100%;border-collapse:collapse;margin-top:16px;direction:ltr;}
+  .setups-table thead tr{border-bottom:1px solid var(--line);}
+  .setups-table th{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);padding:0 6px 9px;font-weight:600;text-align:left;white-space:nowrap;}
+  .setups-table tbody tr{border-bottom:1px solid rgba(29,44,73,.5);}
+  .setups-table td{padding:11px 6px;vertical-align:middle;}
+  .setups-table td:nth-child(1){width:170px;}
+  .setups-table td:nth-child(3){width:80px;}
+  .setrow-tk{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:24px;display:flex;align-items:center;gap:9px;white-space:nowrap;}
+  .chip{display:inline-flex;align-items:center;font-family:'JetBrains Mono',monospace;font-weight:700;font-size:11px;padding:2px 9px;border-radius:6px;white-space:nowrap;line-height:1.25;letter-spacing:.03em;}
+  .chip.ripple{color:var(--gold);background:rgba(245,194,75,.14);}
+  .chip.mom{color:var(--blue);background:rgba(90,169,255,.14);}
+  .chip.hi{color:var(--bull);background:rgba(46,224,138,.14);}
+  .chip.md{color:var(--gold);background:rgba(245,194,75,.14);}
+  .lvline{font-family:'JetBrains Mono',monospace;font-size:17px;font-weight:700;}
+  .lvsub{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--muted);margin-top:4px;letter-spacing:.02em;}
+  .setrr{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:22px;color:var(--gold);}
+  .setwy{font-size:15px;color:var(--text);direction:rtl;text-align:right;line-height:1.36;font-family:'Heebo',sans-serif;}
+  canvas{max-width:100%;}
+  .reveal .slide-number{font-family:'JetBrains Mono',monospace;background:transparent;color:var(--muted);}
+  .glow{text-shadow:0 0 26px rgba(245,194,75,.45);}
+</style>
+</head>
+<body>
+<div class="reveal"><div class="slides">
+<section data-background-color="#070b14">
+  <div class="frame"><div class="rail"></div>
+    <div style="margin-top:10px"><div class="kicker">Momentum Desk · Pre-Market</div>
+      <h1 class="title">Morning<br><span class="glow" style="color:var(--gold)">Brief</span></h1></div>
+    <div style="display:flex;gap:12px;align-items:center;margin:16px 0 7px">
+      <span class="badge off"><span class="dot"></span>RISK-OFF</span>
+      <span class="sub mono">2026-06-17</span></div>
+    <div class="grid" style="grid-template-columns:repeat(5,1fr);margin-top:14px"><div class="card tile"><span class="lab">S&P fut</span><span class="val">7,518</span><span class="chg down">▼ 0.57%</span></div><div class="card tile"><span class="lab">Nasdaq fut</span><span class="val">29,995</span><span class="chg down">▼ 1.85%</span></div><div class="card tile"><span class="lab">Russell</span><span class="val">2,943</span><span class="chg down">▼ 0.86%</span></div><div class="card tile"><span class="lab">VIX</span><span class="val">16.41</span><span class="chg up">▲ 1.30%</span></div><div class="card tile"><span class="lab">10Y yield</span><span class="val">4.43%</span><span class="chg down">▼ 0.92%</span></div></div>
+    <div class="read heb" style="margin-top:16px">AMKR מזנקת לאחר חתימת הסכם משמעותי ל-10 שנים עם Taiwan Semiconductor להרחבת יכולות אריזת מוליכים למחצה באריזונה.</div>
+    <div class="foot"><span>Momentum Morning Brief</span><span>Research aid · not financial advice</span></div>
+  </div></section>
+<section data-background-color="#070b14" data-chart="regime">
+  <div class="frame"><div class="rail"></div>
+    <div class="kicker">Layer 1 · Regime</div>
+    <h2 class="head">The cross-asset tape</h2>
+    <p class="sub heb">איך כל שכבות הסיכון מתיישרות — צבע = כיוון, אורך = עוצמה</p>
+    <div style="display:grid;grid-template-columns:1.15fr .85fr;gap:30px;flex:1;margin-top:14px;align-items:center">
+      <div><div style="height:258px"><canvas id="regimeChart"></canvas></div><div style="margin-top:8px"><span class="badge off" style="font-size:12px"><span class="dot"></span>RISK-OFF</span></div></div>
+      <div style="display:flex;flex-direction:column;gap:16px"><div class="card tile"><span class="lab">WTI Crude</span><span class="val">76.05</span><span class="chg down">▼ 5.82%</span></div><div class="card tile"><span class="lab">Gold</span><span class="val">4,331</span><span class="chg neu">■ 0.07%</span></div><div class="card tile"><span class="lab">Dollar · DXY</span><span class="val">99.54</span><span class="chg neu">■ 0.09%</span></div><div class="card tile"><span class="lab">Bitcoin</span><span class="val">65,601</span><span class="chg down">▼ 1.04%</span></div></div>
+    </div>
+    <div class="foot"><span>Regime · RISK-OFF</span><span>2026-06-17</span></div>
+  </div></section>
+<section data-background-color="#070b14">
+  <div class="frame"><div class="rail"></div>
+    <div class="kicker">Smart Read · 01</div>
+    <h2 class="head">Risk-off — <span style="color:var(--bear)">caution</span></h2>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;flex:1;margin-top:12px"><div class="card" style="border-color:rgba(46,224,138,.4)"><div class="pill" style="background:rgba(46,224,138,.16);color:var(--bull);font-size:10px;padding:4px 10px">TAILWIND</div><ul class="heb" style="font-size:14px;line-height:1.75;margin-top:9px;color:var(--text)"><li>חוזים מהותיים חדשים ל-AAOI, CIFR ו-AMKR מאותתים על צמיחה ספציפית בתעשיית המוליכים למחצה.</li><li>שדרוגי אנליסטים ל-CRWV ו-COHU נותנים רוח גבית למניות טכנולוגיה ספציפיות.</li><li>חוזק יחסי במניות מומנטום בסקטור המוליכים למחצה למרות השוק הכללי.</li></ul></div><div class="card" style="border-color:rgba(255,93,108,.4)"><div class="pill" style="background:rgba(255,93,108,.16);color:var(--bear);font-size:10px;padding:4px 10px">HEADWIND</div><ul class="heb" style="font-size:14px;line-height:1.75;margin-top:9px;color:var(--text)"><li>השוק נסחר ב-RISK-OFF מובהק, עם ירידות חדות ב-NQ=F (-1.85%) וב-CL=F (-5.82%).</li><li>Cathie Wood נפטרת ממניות כמו AMD, מה שמעיד על חשש בקרב משקיעי צמיחה.</li><li>ה-VIX עולה ב-1.3%, משקף עלייה בחוסר הוודאות ובפחד בשוק.</li></ul></div></div>
+    <div class="read heb" style="margin-top:14px">למרות סנטימנט RISK-OFF כללי בשוק הרחב עם ירידות בטכנולוגיה ובסחורות, עדיין ישנם כיסי חוזק ספציפיים במניות סמיקונדקטור עם קטליזטורים חיוביים מובהקים.</div>
+    <div class="foot"><span>Interpretation, not in the raw print</span><span>2026-06-17</span></div>
+  </div></section>
+<section data-background-color="#070b14">
+  <div class="frame"><div class="rail"></div>
+    <div class="kicker">Layer 2 · Catalyst Calendar</div>
+    <h2 class="head">What's binary from here</h2>
+    <div class="timeline2"><div class="tline"></div><div class="tli up" style="left:5%"><div class="lbl"><div class="d mono">Jun 17 · 0d</div><div class="t" style="">LRCX<br>ex-div</div></div><div class="dot"></div></div><div class="tli down" style="left:11%"><div class="lbl"><div class="d mono">Jun 18 · 1d</div><div class="t" style="">KLIC<br>ex-div</div></div><div class="dot"></div></div><div class="tli up" style="left:36%"><div class="lbl"><div class="d mono">Jun 22 · 5d</div><div class="t" style="">AVGO · VST<br>ex-div</div></div><div class="dot"></div></div><div class="tli down" style="left:43%"><div class="lbl"><div class="d mono">Jun 23 · 6d</div><div class="t" style="">STM<br>ex-div</div></div><div class="dot"></div></div><div class="tli up major" style="left:49%"><div class="lbl"><div class="d mono">Jun 24 · 7d</div><div class="t" style="color:var(--bear)">MU · GFS +1<br>earnings</div></div><div class="dot"></div></div><div class="tli down major" style="left:55%"><div class="lbl"><div class="d mono">Jun 25 · 8d</div><div class="t" style="color:var(--bear)">BB<br>earnings</div></div><div class="dot"></div></div></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px">
+      <div class="card" style="display:flex;align-items:center;gap:14px;border-color:rgba(255,93,108,.45)"><div><div class="lab" style="color:var(--muted);font-size:11px">MU implied move</div><div class="big" style="color:var(--bear);font-size:52px">±7%</div></div><div class="read heb" style="border:none;background:none;padding:0;font-size:13px">earnings ב-Jun 24 הם הקטליסט הבינארי המרכזי — ה-trim-into-it risk.</div></div>
+      <div class="card" style="border-color:rgba(46,224,138,.35)"><div class="pill" style="background:rgba(46,224,138,.16);color:var(--bull)">NEWS · hard catalysts</div>
+        <div class="heb" style="font-size:13px;line-height:1.55;margin-top:9px;color:var(--text)"><div style="display:flex;gap:8px;align-items:flex-start;margin-bottom:8px"><span style="color:var(--bull);flex:none;line-height:1.5">▸</span><span style="flex:1">AMKR חתמה על הסכם ענק ל-10 שנים עם Taiwan Semiconductor באריזונה, מה שמסמן אופק צמיחה משמעותי ויציב.</span></div><div style="display:flex;gap:8px;align-items:flex-start;margin-bottom:8px"><span style="color:var(--bull);flex:none;line-height:1.5">▸</span><span style="flex:1">CRWV מזנקת 9.7% ב-pre-market לאחר ש-Cantor Fitzgerald אישרה את דירוג Overweight עם מחיר יעד של $167, המעיד על אמון אנליסטים חזק.</span></div><div style="display:flex;gap:8px;align-items:flex-start;margin-bottom:8px"><span style="color:var(--bull);flex:none;line-height:1.5">▸</span><span style="flex:1">Cathie Wood מכרה מניות AMD, מה שמעורר סימני שאלה לגבי מניות צמיחה מובילות בעיצומו של שוק תנודתי.</span></div></div></div>
+    </div>
+    <div class="foot"><span>Earnings within 14d · ex-div this week · macro events ★</span><span>2026-06-17</span></div>
+  </div></section>
+<section data-background-color="#070b14">
+  <div class="frame"><div class="rail"></div>
+    <div class="kicker">Layer 2½ · Market Breadth</div>
+    <h2 class="head">Beyond the chip chain</h2>
+    <p class="sub heb">איפה זורם כסף בכל השוק — מאקרו למעלה, מפת חום סקטוריאלית למטה.</p>
+    <div class="breadth"><div><div class="mstrip"><div class="mchip"><span class="l">10Y yield</span><span class="v">4.43%</span><span class="c down">▼ 0.92%</span></div><div class="mchip"><span class="l">Dollar · DXY</span><span class="v">99.54</span><span class="c neu">■ 0.09%</span></div><div class="mchip"><span class="l">WTI Crude</span><span class="v">76.05</span><span class="c down">▼ 5.82%</span></div><div class="mchip"><span class="l">Gold</span><span class="v">4,331</span><span class="c neu">■ 0.07%</span></div><div class="mchip"><span class="l">Bitcoin</span><span class="v">65,601</span><span class="c down">▼ 1.04%</span></div></div></div><div class="secgrid"><div class="sectile hot"><div class="sh"><span class="ic">🔧</span><span class="nm">Quantum</span><span class="heat hot">HOT</span></div><div class="tks">ARQQ</div><div class="rd">1 names · avg +11.3% today</div></div><div class="sectile hot"><div class="sh"><span class="ic">🔧</span><span class="nm">Vera Cpu · Agentic Compute</span><span class="heat hot">HOT</span></div><div class="tks">CRWV</div><div class="rd">1 names · avg +9.7% today</div></div><div class="sectile hot"><div class="sh"><span class="ic">🏥</span><span class="nm">Healthcare</span><span class="heat hot">HOT</span></div><div class="tks">ATAI</div><div class="rd">1 names · avg +7.8% today</div></div><div class="sectile warm"><div class="sh"><span class="ic">🔧</span><span class="nm">Energy · Defense</span><span class="heat warm">WARM</span></div><div class="tks">BE · EOSE</div><div class="rd">2 names · avg +4.5% today</div></div><div class="sectile warm"><div class="sh"><span class="ic">🔧</span><span class="nm">Consumer · De-Escalation</span><span class="heat warm">WARM</span></div><div class="tks">HOOD · RBLX</div><div class="rd">2 names · avg +3.3% today</div></div><div class="sectile neutral"><div class="sh"><span class="ic">🔧</span><span class="nm">Misc · Other</span><span class="heat neutral">NEUTRAL</span></div><div class="tks">AMPG · TRT · ALMU</div><div class="rd">4 names · avg +2.2% today</div></div><div class="sectile neutral"><div class="sh"><span class="ic">🔌</span><span class="nm">Power · Cooling · Grid</span><span class="heat neutral">NEUTRAL</span></div><div class="tks">AGX · CEG</div><div class="rd">2 names · avg +1.2% today</div></div><div class="sectile neutral"><div class="sh"><span class="ic">🔧</span><span class="nm">Crypto · Mining</span><span class="heat neutral">NEUTRAL</span></div><div class="tks">CIFR · BTBT · CRCL</div><div class="rd">3 names · avg +0.7% today</div></div><div class="sectile neutral"><div class="sh"><span class="ic">📦</span><span class="nm">Abf · Packaging · Materials</span><span class="heat neutral">NEUTRAL</span></div><div class="tks">AMKR · AMAT · KLIC</div><div class="rd">4 names · avg -0.6% today</div></div></div></div>
+    <div class="foot"><span>Cross-sector · from board + macro</span><span>2026-06-17</span></div>
+  </div></section>
+<section data-background-color="#070b14">
+  <div class="frame"><div class="rail"></div>
+    <div class="kicker">Layer 3 · Ripple Map · the alpha · today's hot sector</div>
+    <h2 class="head" style="font-size:40px">How the bid travels down the chain</h2>
+    <p class="sub heb">כש-AMD זז, כל השרשרת מתמחרת מחדש — אלה ה-sympathy plays להיכנס אליהם מוקדם.</p>
+    <div class="ripple">
+      <svg viewBox="0 0 1400 320" preserveAspectRatio="none"><defs>
+        <linearGradient id="flowg" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0" stop-color="#f5c24b"/><stop offset=".5" stop-color="#7fe6a8"/><stop offset="1" stop-color="#34ffa3"/></linearGradient></defs>
+        <path d="M0,90 L175,90 C350,90 350,230 525,230 C700,230 700,90 875,90 C1050,90 1050,230 1225,230 L1400,230" fill="none" stroke="url(#flowg)" stroke-width="5" stroke-linecap="round" opacity=".4"/>
+        <path class="flow" d="M0,90 L175,90 C350,90 350,230 525,230 C700,230 700,90 875,90 C1050,90 1050,230 1225,230 L1400,230" fill="none" stroke="url(#flowg)" stroke-width="5" stroke-linecap="round" stroke-dasharray="3 24"/>
+      </svg><div class="rnode src" style="left:12.5%;top:90px"><span class="ic">🎯</span><span class="nlab">DRIVER</span></div><div class="rnode " style="left:37.5%;top:230px"><span class="ic">📦</span><span class="nlab">ADVANCED PACKAGING & TES</span></div><div class="rnode pk" style="left:62.5%;top:90px"><span class="ic">💾</span><span class="nlab">HBM & MEMORY</span></div><div class="rnode " style="left:87.5%;top:230px"><span class="ic">🔌</span><span class="nlab">POWER DELIVERY (BOARD LE</span></div><div class="rcard" style="left:12.5%;top:0"><h4>DRIVER</h4><div class="trow"><span class="t">AMD</span><span class="m gold">↓ inverse/fade</span></div></div><div class="rcard" style="left:37.5%;top:238px"><h4>Advanced Packaging & Tes</h4><div class="trow"><span class="t">AEHR</span><span class="m neg">-9.5%</span></div><div class="trow"><span class="t">NVMI</span><span class="m neg">-9.1%</span></div><div class="trow"><span class="t">FORM</span><span class="m neg">-8.1%</span></div><div class="trow"><span class="t">CAMT</span><span class="m neg">-7.8%</span></div></div><div class="rcard" style="left:62.5%;top:0"><h4>HBM & Memory</h4><div class="trow"><span class="t">MU</span><span class="m neg">-6.2%</span></div><div class="trow"><span class="t">MRAM</span><span class="m neg">-6.1%</span></div><div class="trow"><span class="t">SNDK</span><span class="m neg">-5.5%</span></div><div class="trow"><span class="t">WDC</span><span class="m mid">+4.2%</span></div></div><div class="rcard" style="left:87.5%;top:238px"><h4>Power Delivery (board le</h4><div class="trow"><span class="t">MPWR</span><span class="m neg">-9.3%</span></div><div class="trow"><span class="t">NVTS</span><span class="m neg">-6.9%</span></div><div class="trow"><span class="t">POWI</span><span class="m neg">-4.8%</span></div><div class="trow"><span class="t">VICR</span><span class="m neg">-0.6%</span></div></div></div>
+    <div class="foot"><span>Sympathy strength: AMD 41.0/100 · Also: MU, AVGO →</span><span>2026-06-17</span></div>
+  </div></section>
+<section data-background-color="#070b14" data-chart="torque" data-torque='[["WDC", 4.2], ["VICR", -0.6], ["POWI", -4.8], ["SNDK", -5.5], ["MRAM", -6.1], ["MU", -6.2], ["NVTS", -6.9], ["CAMT", -7.8]]'>
+  <div class="frame"><div class="rail"></div>
+    <div class="kicker">Ripple Map · ranked</div>
+    <h2 class="head">Where the torque is</h2>
+    <p class="sub heb">השמות עם התנועה החזקה ביותר בשרשרת — לפי % היום</p>
+    <div style="width:88%;margin:10px auto 0;height:290px;overflow:hidden"><canvas id="torqueChart"></canvas></div>
+    <div class="lagstrip"><span class="laglab">LAGGARDS · not repriced yet</span><span class="lagchip">AEHR -9.5%</span><span class="lagchip">NVMI -9.1%</span><span class="lagchip">FORM -8.1%</span><span class="lagchip">CAMT -7.8%</span><span class="lagchip">MU -6.2%</span><span class="lagchip">MRAM -6.1%</span></div>
+    <div class="foot"><span>Daily % move · ripple chain</span><span>2026-06-17</span></div>
+  </div></section>
+<section data-background-color="#070b14">
+  <div class="frame"><div class="rail"></div>
+    <div class="kicker">Layer 4 · Catalyst Watchlist</div>
+    <h2 class="head">The connected universe</h2>
+    <p class="sub heb">כל השמות שנעים עם הקטליסט של היום — לפי סקטור, וכל אחד והקטליסט שלו.</p>
+    <div class="catlist"><div class="catcol"><div class="catgrp"><span class="ico">💾</span>Memory · Storage</div><div class="catrow"><span class="tk"><span class="sdot down">●</span>WDC</span><span class="mv up">+4.2%</span><span class="ev">AMD supply-chain play (2nd-order)</span></div><div class="catrow"><span class="tk"><span class="sdot down">●</span>MU</span><span class="mv down">-6.2%</span><span class="ev"><span class="ctag earn">EARN Jun 24</span>Memory / Storage</span></div><div class="catrow"><span class="tk"><span class="sdot down">●</span>STX</span><span class="mv up">+1.2%</span><span class="ev"><span class="ctag exd">EX-DIV</span>Jun 24 · Memory / Storage</span></div><div class="catrow"><span class="tk"><span class="sdot down">●</span>SNDK</span><span class="mv down">-5.5%</span><span class="ev">AMD supply-chain play (2nd-order)</span></div><div class="catrow"><span class="tk"><span class="sdot down">●</span>MRAM</span><span class="mv down">-6.1%</span><span class="ev">AMD supply-chain play (2nd-order)</span></div><div class="catgrp"><span class="ico">🔧</span>Crypto · Mining</div><div class="catrow"><span class="tk"><span class="sdot down">●</span>CIFR</span><span class="mv up">+0.7%</span><span class="ev"><span class="ctag filing">8-K</span>SEC filing: material agreement signed</span></div><div class="catgrp"><span class="ico">🔧</span>Quantum</div><div class="catrow"><span class="tk"><span class="sdot down">●</span>ARQQ</span><span class="mv up">+11.3%</span><span class="ev">gapping +11% pre-market</span></div><div class="catgrp"><span class="ico">🔧</span>Misc · Other</div><div class="catrow"><span class="tk"><span class="sdot down">●</span>AMPG</span><span class="mv up">+17.1%</span><span class="ev">gapping +17% pre-market</span></div></div><div class="catcol"><div class="catgrp"><span class="ico">📦</span>Abf · Packaging · Mate</div><div class="catrow"><span class="tk"><span class="sdot down">●</span>AMKR</span><span class="mv up">+1.3%</span><span class="ev"><span class="ctag filing">8-K</span>Amkor And Taiwan Semiconductor Announce 10-Ye</span></div><div class="catrow"><span class="tk"><span class="sdot down">●</span>AMAT</span><span class="mv down">-3.0%</span><span class="ev"><span class="ctag filing">8-K</span>EssilorLuxottica, Applied Materials strike de</span></div><div class="catrow"><span class="tk"><span class="sdot down">●</span>KLIC</span><span class="mv up">+1.6%</span><span class="ev"><span class="ctag exd">EX-DIV</span>Jun 18 · Abf / Packaging / </span></div><div class="catgrp"><span class="ico">🔌</span>Power Semis</div><div class="catrow"><span class="tk"><span class="sdot down">●</span>ALGM</span><span class="mv down">-3.1%</span><span class="ev">pullback-to-MA setup (2.1:1 reward/risk)</span></div><div class="catrow"><span class="tk"><span class="sdot down">●</span>AEHR</span><span class="mv down">-9.5%</span><span class="ev">AMD supply-chain play (1st-order)</span></div><div class="catgrp"><span class="ico">🔧</span>Vera Cpu · Agentic Com</div><div class="catrow"><span class="tk"><span class="sdot down">●</span>CRWV</span><span class="mv up">+9.7%</span><span class="ev"><span class="ctag filing">8-K</span>Cantor Fitzgerald Reiterates Overweight on Co</span></div><div class="catgrp"><span class="ico">🔧</span>Other</div><div class="catrow"><span class="tk"><span class="sdot down">●</span>CAMT</span><span class="mv down">-7.8%</span><span class="ev">AMD supply-chain play (1st-order)</span></div></div><div class="catcol"><div class="catgrp"><span class="ico">🛠️</span>Semicap · Wfe</div><div class="catrow"><span class="tk"><span class="sdot down">●</span>UCTT</span><span class="mv down">-3.7%</span><span class="ev">momentum-continuation setup (2.3:1 reward/ris</span></div><div class="catrow"><span class="tk"><span class="sdot down">●</span>FORM</span><span class="mv down">-8.1%</span><span class="ev">AMD supply-chain play (1st-order)</span></div><div class="catrow"><span class="tk"><span class="sdot down">●</span>COHU</span><span class="mv down">-2.6%</span><span class="ev"><span class="ctag filing">8-K</span>TD Cowen Maintains Buy on Cohu, Raises Price </span></div><div class="catgrp"><span class="ico">🔗</span>Photonics - Lasers</div><div class="catrow"><span class="tk"><span class="sdot down">●</span>AAOI</span><span class="mv down">-10.8%</span><span class="ev"><span class="ctag filing">8-K</span>SEC filing: material agreement signed</span></div><div class="catgrp"><span class="ico">🧠</span>Ai Core</div><div class="catrow"><span class="tk"><span class="sdot down">●</span>AMD</span><span class="mv down">-7.3%</span><span class="ev"><span class="ctag filing">8-K</span>Cathie Wood Dumps Millions Worth Of Tesla, Pa</span></div><div class="catgrp"><span class="ico">🔗</span>Data Movement · Networ</div><div class="catrow"><span class="tk"><span class="sdot down">●</span>CRDO</span><span class="mv down">-7.8%</span><span class="ev"><span class="ctag filing">8-K</span>Credo: I Upgraded At $135. At Record Highs, I</span></div></div></div>
+    <div class="foot"><span>EARN · 8-K · EX-DIV · ranked by conviction score</span><span>2026-06-17</span></div>
+  </div></section>
+<section data-background-color="#070b14"><style>
+    .su4{position:absolute;inset:0;display:block;overflow:hidden;background:#070b14;color:#e9eef6;font-family:"Space Grotesk",system-ui,sans-serif;-webkit-font-smoothing:antialiased;}
+    .su4::before{content:"";position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(rgba(29,44,73,.35) 1px,transparent 1px),linear-gradient(90deg,rgba(29,44,73,.35) 1px,transparent 1px);background-size:48px 48px;-webkit-mask-image:radial-gradient(ellipse at 30% 20%,#000 0%,transparent 75%);mask-image:radial-gradient(ellipse at 30% 20%,#000 0%,transparent 75%);}
+    .su4-rail{position:absolute;left:0;top:0;bottom:0;width:5px;z-index:3;background:linear-gradient(180deg,#f5c24b,rgba(245,194,75,.15));}
+    .su4-hdr{position:absolute;left:50px;right:50px;top:38px;z-index:2;}
+    .su4-kicker{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#f5c24b;margin:0;}
+    .su4-h2{font-size:28px;font-weight:700;line-height:1.05;margin:7px 0 4px;color:#e9eef6;}
+    .su4-sub{font-family:"Heebo",sans-serif;direction:rtl;text-align:right;font-size:13px;color:#8aa0c0;margin:0;}
+    .su4-colhd{position:absolute;left:50px;right:50px;top:122px;z-index:2;white-space:nowrap;font-size:0;}
+    .su4-sep{position:absolute;left:50px;right:50px;top:138px;height:1px;z-index:2;background:#1d2c49;}
+    .su4-colhd .su4-col{font-family:"JetBrains Mono",monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:#8aa0c0;}
+    .su4-rows{position:absolute;left:50px;right:50px;top:145px;z-index:2;}
+    .su4-row{white-space:nowrap;font-size:0;padding:7px 0;border-bottom:1px solid rgba(29,44,73,.6);}
+    .su4-col{display:inline-block;vertical-align:top;white-space:normal;box-sizing:border-box;padding-right:10px;}
+    .su4-c1{width:110px;} .su4-c2{width:230px;} .su4-c3{width:64px;text-align:center;padding-right:0;} .su4-c4{width:calc(100% - 110px - 230px - 64px);padding-right:0;}
+    .su4-tk{font-family:"JetBrains Mono",monospace;font-size:15px;font-weight:700;color:#e9eef6;line-height:1.1;}
+    .su4-ch{display:inline-block;margin-top:3px;font-family:"JetBrains Mono",monospace;font-size:8px;letter-spacing:.07em;text-transform:uppercase;padding:1px 5px;border-radius:3px;border:1px solid currentColor;}
+    .su4-hi{color:#2ee08a;} .su4-md{color:#f5c24b;} .su4-rp{color:#f5c24b;} .su4-mo{color:#5aa9ff;}
+    .su4-lvls{font-family:"JetBrains Mono",monospace;font-size:11px;line-height:1.45;white-space:nowrap;}
+    .su4-lv{display:inline-block;margin-right:7px;} .su4-lv b{font-weight:700;}
+    .su4-s{color:#ff5d6c;} .su4-e{color:#f5c24b;} .su4-t{color:#2ee08a;}
+    .su4-meta{font-family:"JetBrains Mono",monospace;font-size:8px;color:#8aa0c0;margin-top:2px;}
+    .su4-rr{font-family:"JetBrains Mono",monospace;font-size:15px;font-weight:700;color:#f5c24b;line-height:1.1;}
+    .su4-rrl{font-size:8px;color:#8aa0c0;letter-spacing:.1em;}
+    .su4-rrbar{display:inline-block;width:44px;height:5px;border-radius:3px;overflow:hidden;margin-top:3px;border:1px solid #1d2c49;}
+    .su4-rrbar i{display:inline-block;height:100%;vertical-align:top;}
+    .su4-rrbar .g{background:#2ee08a;} .su4-rrbar .r{background:#ff5d6c;}
+    .su4-why{font-family:"Heebo",sans-serif;direction:rtl;text-align:right;font-size:11px;line-height:1.4;color:#e9eef6;}
+    .su4-foot{position:absolute;left:50px;right:50px;bottom:13px;z-index:2;font-family:"JetBrains Mono",monospace;font-size:9px;color:#8aa0c0;white-space:nowrap;}
+    .su4-foot .su4-dt{float:right;color:#5aa9ff;}
+    </style><div class="su4"><div class="su4-rail"></div><div class="su4-hdr"><p class="su4-kicker">Layer 4 · Actionable Setups</p><h2 class="su4-h2">Why these trades</h2><p class="su4-sub">6 הטריידים המובילים — S=stop · E=entry · T=target, פרטים טכניים, והסיבה.</p></div><div class="su4-colhd"><span class="su4-col su4-c1">Ticker</span><span class="su4-col su4-c2">Stop · Entry · Target + technicals</span><span class="su4-col su4-c3">R:R</span><span class="su4-col su4-c4" style="text-align:right;">Why</span></div><div class="su4-sep"></div><div class="su4-rows"><div class="su4-row"><span class="su4-col su4-c1"><span class="su4-tk">WDC</span><br><span class="su4-ch su4-md">MED</span> <span class="su4-ch su4-rp">Ripple</span></span><span class="su4-col su4-c2"><span class="su4-lvls"><span class="su4-lv su4-s">S <b>$664.67</b></span><span class="su4-lv su4-e">E <b>$732.17</b></span><span class="su4-lv su4-t">T <b>$889.67</b></span></span><div class="su4-meta">RSI 69 · -7% from high · wk +32%</div></span><span class="su4-col su4-c3"><span class="su4-rr">2.3:1</span><br><span class="su4-rrbar"><i class="g" style="width:70%"></i><i class="r" style="width:30%"></i></span><br><span class="su4-rrl">R:R</span></span><span class="su4-col su4-c4"><span class="su4-why">AMD supply-chain play (2nd-order) · momentum-continuation setup (2.3:1 reward/risk) · up 32% this week</span></span></div><div class="su4-row"><span class="su4-col su4-c1"><span class="su4-tk">AMKR</span><br><span class="su4-ch su4-md">MED</span> <span class="su4-ch su4-mo">Momentum-Cont</span></span><span class="su4-col su4-c2"><span class="su4-lvls"><span class="su4-lv su4-s">S <b>$86.63</b></span><span class="su4-lv su4-e">E <b>$97.03</b></span><span class="su4-lv su4-t">T <b>$121.28</b></span></span><div class="su4-meta">RSI 67 · -10% from high · wk +22%</div></span><span class="su4-col su4-c3"><span class="su4-rr">2.3:1</span><br><span class="su4-rrbar"><i class="g" style="width:70%"></i><i class="r" style="width:30%"></i></span><br><span class="su4-rrl">R:R</span></span><span class="su4-col su4-c4"><span class="su4-why">new contract win (bullish) · momentum-continuation setup (2.3:1 reward/risk) · up 22% this week</span></span></div><div class="su4-row"><span class="su4-col su4-c1"><span class="su4-tk">AAOI</span><br><span class="su4-ch su4-md">MED</span> <span class="su4-ch su4-rp">Ripple</span></span><span class="su4-col su4-c2"><span class="su4-lvls"><span class="su4-lv su4-s">S <b>$168.26</b></span><span class="su4-lv su4-e">E <b>$170.81</b></span><span class="su4-lv su4-t">T <b>$187.89</b></span></span><div class="su4-meta">RSI 48 · -27% from high · wk +5%</div></span><span class="su4-col su4-c3"><span class="su4-rr">6.7:1</span><br><span class="su4-rrbar"><i class="g" style="width:87%"></i><i class="r" style="width:13%"></i></span><br><span class="su4-rrl">R:R</span></span><span class="su4-col su4-c4"><span class="su4-why">recent SEC filing · AVGO supply-chain play (3rd-order) · gapping -11% pre-market</span></span></div><div class="su4-row"><span class="su4-col su4-c1"><span class="su4-tk">AMAT</span><br><span class="su4-ch su4-md">MED</span> <span class="su4-ch su4-mo">Momentum-Cont</span></span><span class="su4-col su4-c2"><span class="su4-lvls"><span class="su4-lv su4-s">S <b>$550.23</b></span><span class="su4-lv su4-e">E <b>$602.66</b></span><span class="su4-lv su4-t">T <b>$724.98</b></span></span><div class="su4-meta">RSI 73 · -5% from high · wk +14%</div></span><span class="su4-col su4-c3"><span class="su4-rr">2.3:1</span><br><span class="su4-rrbar"><i class="g" style="width:70%"></i><i class="r" style="width:30%"></i></span><br><span class="su4-rrl">R:R</span></span><span class="su4-col su4-c4"><span class="su4-why">new contract win · momentum-continuation setup (2.3:1 reward/risk) · up 14% this week</span></span></div><div class="su4-row"><span class="su4-col su4-c1"><span class="su4-tk">CIFR</span><br><span class="su4-ch su4-md">MED</span> <span class="su4-ch su4-mo">Momentum</span></span><span class="su4-col su4-c2"><span class="su4-lvls"><span class="su4-lv su4-s">S <b>$24.38</b></span><span class="su4-lv su4-e">E <b>$26.21</b></span><span class="su4-lv su4-t">T <b>$32</b></span></span><div class="su4-meta">RSI 53 · -8% from high · wk +14%</div></span><span class="su4-col su4-c3"><span class="su4-rr">3.2:1</span><br><span class="su4-rrbar"><i class="g" style="width:76%"></i><i class="r" style="width:24%"></i></span><br><span class="su4-rrl">R:R</span></span><span class="su4-col su4-c4"><span class="su4-why">recent SEC filing · up 14% this week</span></span></div><div class="su4-row"><span class="su4-col su4-c1"><span class="su4-tk">CRWV</span><br><span class="su4-ch su4-md">MED</span> <span class="su4-ch su4-mo">Momentum</span></span><span class="su4-col su4-c2"><span class="su4-lvls"><span class="su4-lv su4-s">S <b>$110.19</b></span><span class="su4-lv su4-e">E <b>$117.03</b></span><span class="su4-lv su4-t">T <b>$140.18</b></span></span><div class="su4-meta">RSI 58 · -37% from high · wk +19%</div></span><span class="su4-col su4-c3"><span class="su4-rr">3.4:1</span><br><span class="su4-rrbar"><i class="g" style="width:77%"></i><i class="r" style="width:23%"></i></span><br><span class="su4-rrl">R:R</span></span><span class="su4-col su4-c4"><span class="su4-why">analyst action · gapping +10% pre-market · up 19% this week</span></span></div></div><div class="su4-foot">levels = detected setup or technical · WHY = catalyst<span class="su4-dt">2026-06-17</span></div></div></section>
+<section data-background-color="#070b14">
+  <div class="frame"><div class="rail"></div>
+    <div class="kicker">The Desk Read</div>
+    <h2 class="head">One screen, one read</h2>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:13px;margin-top:14px">
+      <div class="card"><div class="pill" style="background:rgba(46,224,138,.16);color:var(--bull);font-size:10px;padding:4px 10px">REGIME</div>
+        <p class="heb" style="font-size:14px;line-height:1.5;margin-top:8px;margin-bottom:0">השוק נסחר בסביבת RISK-OFF מובהקת, עם נטייה לירידות רוחביות.</p></div>
+      <div class="card"><div class="pill" style="background:rgba(255,93,108,.16);color:var(--bear);font-size:10px;padding:4px 10px">RISK</div>
+        <p class="heb" style="font-size:14px;line-height:1.5;margin-top:8px;margin-bottom:0">הסיכון הוא לסחור בניגוד למגמה הכללית, אך הזדמנויות קיימות במניות עם קטליזטורים ספציפיים וחזקים.</p></div>
+      <div class="card"><div class="pill" style="background:rgba(245,194,75,.18);color:var(--gold);font-size:10px;padding:4px 10px">ALPHA</div>
+        <p class="heb" style="font-size:14px;line-height:1.5;margin-top:8px;margin-bottom:0">האלפא היום נמצאת ב-AMKR וב-CRWV, המראות חוזק יוצא דופן בזכות חוזים חדשים ושדרוגי אנליסטים.</p></div>
+    </div>
+    <div class="card" style="margin-top:16px;border-color:rgba(245,194,75,.4);background:rgba(245,194,75,.05)">
+      <p class="heb glow" style="font-size:19px;line-height:1.5;margin:0;color:var(--text)">בסביבת RISK-OFF, יש להתמקד במניות עם סיפור ברור וקטליזטורים חזקים כדי לייצר אלפא.</p></div>
+    <div class="foot"><span>Momentum Morning Brief · 2026-06-17</span><span>Research aid · not financial advice</span></div>
+  </div></section>
+</div></div>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+<script>
+  Reveal.initialize({hash:true, slideNumber:'c/t', transition:'slide', backgroundTransition:'fade', width:1024, height:576, margin:0.02, minScale:0.1, maxScale:3.0, controlsTutorial:false, touch:true});
+  const BULL='#2ee08a',BEAR='#ff5d6c',GOLD='#f5c24b',MUTED='#8aa0c0',GRID='rgba(29,44,73,.7)';
+  Chart.defaults.color=MUTED; Chart.defaults.font.family="'JetBrains Mono', monospace";
+  const done={}; const REGIME=[{"l": "Russell", "v": -0.86, "c": "#ff5d6c"}, {"l": "Nasdaq", "v": -1.85, "c": "#ff5d6c"}, {"l": "S&P", "v": -0.57, "c": "#ff5d6c"}, {"l": "Bitcoin", "v": -1.04, "c": "#ff5d6c"}, {"l": "10Y yield", "v": -0.92, "c": "#ff5d6c"}, {"l": "DXY", "v": -0.09, "c": "#8aa0c0"}, {"l": "WTI Crude", "v": -5.82, "c": "#ff5d6c"}, {"l": "VIX", "v": 1.3, "c": "#2ee08a"}];
+  function initRegime(){const el=document.getElementById('regimeChart');if(!el)return;
+    new Chart(el,{type:'bar',data:{labels:REGIME.map(d=>d.l),datasets:[{data:REGIME.map(d=>d.v),backgroundColor:REGIME.map(d=>d.c),borderRadius:6,barThickness:30}]},
+     options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.raw+'%'}}},
+     scales:{x:{grid:{color:GRID},ticks:{callback:v=>v+'%'},title:{display:true,text:'% change'}},y:{grid:{display:false},ticks:{font:{size:16,weight:700},color:'#e9eef6'}}}}});}
+  function initTorque(){const el=document.getElementById('torqueChart');if(!el)return;
+    const TORQUE=(function(){var s=document.querySelector('[data-torque]');return s?JSON.parse(s.dataset.torque):[];})();
+    const lerp=(a,b,t)=>a.map((c,i)=>Math.round(c+(b[i]-c)*t));const rgb=a=>`rgb(${a[0]},${a[1]},${a[2]})`;
+    const ORANGE=[255,159,28],GREEN=[52,255,163],RED=[255,93,108];
+    const pos=TORQUE.map(d=>d[1]).filter(v=>v>0);const mn=Math.min(...pos),mx=Math.max(...pos);
+    const heat=v=>v<=0?rgb(RED):rgb(lerp(ORANGE,GREEN,(v-mn)/(mx-mn||1)));
+    new Chart(el,{type:'bar',data:{labels:TORQUE.map(d=>d[0]),datasets:[{data:TORQUE.map(d=>d[1]),borderRadius:6,barThickness:46,backgroundColor:TORQUE.map(d=>heat(d[1]))}]},
+     options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>'+'+c.raw+'%'}}},
+     scales:{y:{grid:{color:GRID},ticks:{callback:v=>v+'%'}},x:{grid:{display:false},ticks:{font:{size:18,weight:700},color:'#e9eef6'}}}}});}
+  const inits={regime:initRegime,torque:initTorque};
+  function run(){const s=Reveal.getCurrentSlide();const k=s&&s.dataset.chart;if(k&&inits[k]&&!done[k]){done[k]=true;inits[k]();}}
+  Reveal.on('ready',run);Reveal.on('slidechanged',run);
+</script>
+</body>
+</html>
